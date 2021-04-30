@@ -8,6 +8,15 @@ def get_group_generators(p) -> List[int]:
     """
     return  list(filter(lambda x: math.gcd(x, p) == 1, range(p)))
 
+def isGeneratorOf(n: int, p: int):
+    group = get_group_generators(p)
+    generators = list(map(lambda x:
+        n**x % p, group
+        ))
+    print(f"Zp: {group}")
+    print(f"Generators: {sorted(generators)}")
+    return set(group )== set(generators)
+
 def phi(n: int) -> int: return len(get_group_generators(n))
 
 def get_inverse_modulo(a, n) -> int:
