@@ -39,3 +39,9 @@ def square_and_multiply(exponent: int) -> Dict[str, int]:
 
 def toBinary(number: int) -> str: return bin(number)
 
+def find_discrete_logarithm(generator: int, modulo: int, x) -> int:
+    for i in range(x):
+        if generator ** i % modulo == x:
+            print(f"{generator}^{i} mod {modulo} = {x}")
+            return i
+
