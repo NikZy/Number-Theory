@@ -1,4 +1,5 @@
 import math
+import numpy as np
 from typing import List, Dict
 
 def get_group_generators(p) -> List[int]:
@@ -45,3 +46,30 @@ def find_discrete_logarithm(generator: int, modulo: int, x) -> int:
             print(f"{generator}^{i} mod {modulo} = {x}")
             return i
 
+def encrypt_hill_cipher(key, plaintext, mod):
+    """
+    Key and plaintext are matrixes
+    Made by regular python double lists
+    02
+    13
+    [[0,2], [1,3]]
+    """
+    return np.dot(key, plaintext) % mod
+
+
+def hill_cipher_find_k_inverse(key, n):
+    """
+    42
+    22
+    K = [[4,2], [2,2]]
+    """
+    determinant = (key[0][0]*key[1][1] - key[0][1]*key[1][0])
+    print(f"Determinant: {determinant}^-1")
+    determinant_inverse = get_inverse_modulo(int(determinant), n)
+    print(f"Determinant inverse: {determinant_inverse}")
+    key[0][0], key[1][1] = key[1][1], key[0][0]
+    key[0][1], key[1][0] = n -key[0][1], n -key[1][0]
+    print(f"new key: {key}")
+    key_inverse = determinant_inverse * key % 5
+    print(f"K^-1: {key_inverse}")
+    return key_inverse
