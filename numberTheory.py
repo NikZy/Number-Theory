@@ -24,18 +24,16 @@ def get_inverse_modulo(a, n) -> int:
     return pow(a, -1, n)
 
 def square_and_multiply(exponent: int) -> Dict[str, int]:
-    # Remove byte prefix and the first Byte
-    byteString = toBinary(exponent)[3:]
+    # Remove byte prefix
+    byteString = toBinary(exponent)[2:]
     print(f"ByteString {byteString}")
+
+    # Squares are length of byteString - 1
+    # multiples are number of 1¨s -1
     squaresAndMultiplies = {"square": 0, "multiplies": 0}
-    for byte in byteString:
-        if byte == "0":
-            squaresAndMultiplies["square"] += 1
-            squaresAndMultiplies["multiplies"] += 1
-        elif byte == "1":
-            squaresAndMultiplies["multiplies"] += 1
-        else:
-            raise Exception("Invalid binary string")
+    squaresAndMultiplies["multiplies"] = byteString.count("1") - 1
+    squaresAndMultiplies["square"] = len(byteString) -1
+
     print(squaresAndMultiplies)
     return square_and_multiply
 
