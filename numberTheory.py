@@ -1,6 +1,7 @@
 import math
 import numpy as np
 from typing import List, Dict
+import numpy.typing as npt
 
 def get_group_generators(p) -> List[int]:
     """
@@ -9,7 +10,7 @@ def get_group_generators(p) -> List[int]:
     """
     return  list(filter(lambda x: math.gcd(x, p) == 1, range(p)))
 
-def isGeneratorOf(n: int, p: int):
+def is_generator_of(n: int, p: int) -> bool:
     """
     A generator must have order p-1 when the modululus is p.
     To check this we only have to check 2**(p-1) / f mod p != 1
@@ -26,12 +27,12 @@ def isGeneratorOf(n: int, p: int):
 
 def phi(n: int) -> int: return len(get_group_generators(n))
 
-def get_inverse_modulo(a, n) -> int:
+def get_inverse_modulo(a: int, n: int) -> int:
     return pow(a, -1, n)
 
 def square_and_multiply(exponent: int) -> Dict[str, int]:
     # Remove byte prefix
-    byteString = toBinary(exponent)[2:]
+    byteString = binary(exponent)[2:]
     print(f"ByteString {byteString}")
 
     # Squares are length of byteString - 1
@@ -43,7 +44,7 @@ def square_and_multiply(exponent: int) -> Dict[str, int]:
     print(squaresAndMultiplies)
     return square_and_multiply
 
-def toBinary(number: int) -> str: return bin(number)
+def binary(number: int) -> str: return bin(number)
 
 def find_discrete_logarithm(generator: int, modulo: int, x) -> int:
     for i in range(x):
@@ -51,7 +52,11 @@ def find_discrete_logarithm(generator: int, modulo: int, x) -> int:
             print(f"{generator}^{i} mod {modulo} = {x}")
             return i
 
-def encrypt_hill_cipher(key, plaintext, mod):
+def encrypt_hill_cipher(
+        key: npt.ArrayLike,
+        plaintext: npt.ArrayLike,
+        mod: int,
+        ) -> npt.ArrayLike:
     """
     Key and plaintext are matrixes
     Made by regular python double lists
@@ -62,7 +67,7 @@ def encrypt_hill_cipher(key, plaintext, mod):
     return np.dot(key, plaintext) % mod
 
 
-def hill_cipher_find_k_inverse(key, n):
+def hill_cipher_find_k_inverse(key: npt.ArrayLike, n: int) -> npt.ArrayLike:
     """
     42
     22
