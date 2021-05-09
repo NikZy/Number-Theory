@@ -10,6 +10,11 @@ def get_group_generators(p) -> List[int]:
     return  list(filter(lambda x: math.gcd(x, p) == 1, range(p)))
 
 def isGeneratorOf(n: int, p: int):
+    """
+    A generator must have order p-1 when the modululus is p.
+    To check this we only have to check 2**(p-1) / f mod p != 1
+    for the prime factors f of p-1
+    """
     group = get_group_generators(p)
     generators = list(map(lambda i:
         n**i % p, group
