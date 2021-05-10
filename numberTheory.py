@@ -14,7 +14,15 @@ def is_generator_of(n: int, p: int) -> bool:
     """
     A generator must have order p-1 when the modululus is p.
     To check this we only have to check 2**(p-1) / f mod p != 1
-    for the prime factors f of p-1
+    for the prime factors f of p-1.
+    Example:
+    g=3, p=43
+    factors of p-1 = 2*3*6
+    2*3 = 6
+    2*7 = 14
+    3*7 = 21
+    Need to check that all muliplicatives of factors g**(6,14,21)
+    % 43 != 1
     """
     group = get_group_generators(p)
     generators = list(map(lambda i:
